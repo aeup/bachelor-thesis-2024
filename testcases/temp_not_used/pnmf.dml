@@ -1,0 +1,5 @@
+X = matrix(1,rows=8000, cols=8000);
+
+RESULT = pnmf(X=X, rnk=100, maxi=5);
+
+print(toString(RESULT));

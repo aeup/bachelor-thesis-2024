@@ -1,0 +1,6 @@
+X = read("data/Covtype/Covtype_X2.csv");
+Y = read("data/Covtype/Covtype_y.csv");
+
+RESULT = lmCG(X=X, y=Y, verbose=FALSE);
+
+print(toString(RESULT));

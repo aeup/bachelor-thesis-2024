@@ -1,0 +1,5 @@
+X = read("data/Adult/Adult_X.csv");
+
+RESULT = kmeans(X=X);
+
+print(toString(RESULT));

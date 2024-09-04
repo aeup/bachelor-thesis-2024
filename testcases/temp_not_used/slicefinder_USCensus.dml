@@ -1,0 +1,6 @@
+X = read("data/USCensus/USCensus_X.csv");
+E = read("data/USCensus/USCensus_o_e.csv");
+
+RESULT = slicefinder(X=X, e=E);
+
+print(toString(RESULT));

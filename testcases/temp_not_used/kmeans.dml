@@ -1,0 +1,6 @@
+#X = rand(rows=10000, cols=10000);
+X = read("data/Covtype/Covtype_X.csv");
+
+RESULT = kmeans(X=X);
+
+print(toString(RESULT));

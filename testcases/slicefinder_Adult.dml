@@ -1,0 +1,6 @@
+X = read("data/Adult/Adult_X.csv")
+E = read("data/Adult/Adult_o_e.csv")
+
+RESULT = slicefinder(X=X, e=E);
+
+print(toString(RESULT));

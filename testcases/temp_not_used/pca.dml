@@ -1,0 +1,7 @@
+source("testcases/utils/pca.dml") as pca;
+
+X = matrix(1,rows=8000, cols=8000);
+
+RESULT = pca::m_pca(X=X);
+
+print(toString(RESULT));

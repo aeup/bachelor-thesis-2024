@@ -1,0 +1,5 @@
+X = read("data/USCensus/USCensus_X.csv");
+
+RESULT = kmeans(X=X);
+
+print(toString(RESULT));

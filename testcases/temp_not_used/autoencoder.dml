@@ -1,0 +1,7 @@
+source("testcases/utils/autoencoder_2layer.dml") as autoencoder;
+
+X = matrix(10,rows=10000, cols=10000);
+
+RESULT = autoencoder::m_autoencoder_2layer(X=X, num_hidden1=40, num_hidden2=40, max_epochs=50);
+
+print(toString(RESULT));

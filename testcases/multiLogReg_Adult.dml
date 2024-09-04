@@ -1,0 +1,6 @@
+X = read("data/Adult/Adult_X2.csv");
+Y = read("data/Adult/Adult_y.csv");
+
+RESULT = multiLogReg(X=X, Y=Y);
+
+print(toString(RESULT));

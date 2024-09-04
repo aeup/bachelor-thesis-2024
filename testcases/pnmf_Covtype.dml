@@ -1,0 +1,5 @@
+X = read("data/Covtype/Covtype_X.csv");
+
+RESULT = pnmf(X=X, rnk=100, maxi=5);
+
+print(toString(RESULT));

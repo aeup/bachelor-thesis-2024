@@ -1,0 +1,6 @@
+X = read("data/Adult/Adult_X2.csv");
+Y = read("data/Adult/Adult_y.csv");
+
+RESULT = lmCG(X=X, y=Y, verbose=FALSE);
+
+print(toString(RESULT));

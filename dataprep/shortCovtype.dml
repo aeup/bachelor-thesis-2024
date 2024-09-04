@@ -1,0 +1,16 @@
+X = read($DIR+"Covtype_X.csv");
+X2 = read($DIR+"Covtype_X2.csv");
+e = read($DIR+"Covtype_o_e.csv");
+y = read($DIR+"Covtype_y.csv");
+
+SHORTX = X[1:$LENGTH, ];
+write(SHORTX, $DIR+"short/Covtype_X.csv", format="csv");
+
+SHORTE = e[1:$LENGTH, ];
+write(SHORTE, $DIR+"short/Covtype_o_e.csv", format="csv");
+
+SHORTX2 = X2[1:$LENGTH, ];
+write(SHORTX2, $DIR+"short/Covtype_X2.csv", format="csv");
+
+SHORTY = y[1:$LENGTH, ];
+write(SHORTY, $DIR+"short/Covtype_y.csv", format="csv");

@@ -1,0 +1,7 @@
+source("testcases/utils/autoencoder_2layer.dml") as autoencoder;
+
+X = read("data/Adult/Adult_X.csv");
+
+RESULT = autoencoder::m_autoencoder_2layer(X=X, num_hidden1=100, num_hidden2=10, max_epochs=50);
+
+print(toString(RESULT));

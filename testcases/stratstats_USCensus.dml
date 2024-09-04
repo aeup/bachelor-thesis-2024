@@ -1,0 +1,7 @@
+source("testcases/utils/stratstats.dml") as stratstats;
+
+X = read("data/USCensus/USCensus_X.csv");
+
+RESULT = stratstats::m_stratstats(X=X);
+
+print(toString(RESULT));

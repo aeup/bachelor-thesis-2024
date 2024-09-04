@@ -1,0 +1,8 @@
+X = read($DIR+"USCensus_X.csv");
+e = read($DIR+"USCensus_o_e.csv");
+
+SHORTX = X[1:$LENGTH, ];
+write(SHORTX, $DIR+"short/USCensus_X.csv", format="csv");
+
+SHORTE = e[1:$LENGTH, ];
+write(SHORTE, $DIR+"short/USCensus_o_e.csv", format="csv");

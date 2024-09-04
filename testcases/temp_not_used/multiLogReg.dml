@@ -1,0 +1,6 @@
+X = matrix(10,rows=1000, cols=100000);
+Y = matrix(10,rows=1000, cols=1);
+
+RESULT = multiLogReg(X=X, Y=Y);
+
+print(toString(RESULT));
