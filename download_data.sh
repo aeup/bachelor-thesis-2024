@@ -9,10 +9,10 @@ sed -i '$d' data/Adult/Adult.csv;
 
 systemds -f dataprep/dataprepAdult.dml -exec singlenode -stats -nvargs FILE="./data/Adult/Adult.csv" OUTPUTDIR="./data/Adult/"
 
-# Adult Short
-mkdir -p data/Adult/short
+## Adult Short
+#mkdir -p data/Adult/short
 
-systemds -f dataprep/shortAdult.dml -stats -nvargs DIR="./data/Adult/" LENGTH=10000
+#systemds -f dataprep/shortAdult.dml -stats -nvargs DIR="./data/Adult/" LENGTH=10000
 
 # Covtype
 mkdir -p data/Covtype
@@ -22,10 +22,10 @@ mv ./data/Covtype/covtype.data ./data/Covtype/Covtype.csv;
 
 systemds -f dataprep/dataprepCovtype.dml -exec singlenode -stats -nvargs FILE="./data/Covtype/Covtype.csv" OUTPUTDIR="./data/Covtype/"
 
-# Covtype Short
-mkdir -p data/Covtype/short
+## Covtype Short
+#mkdir -p data/Covtype/short
 
-systemds -f dataprep/shortCovtype.dml -nvargs DIR="./data/Covtype/" LENGTH=200
+#systemds -f dataprep/shortCovtype.dml -nvargs DIR="./data/Covtype/" LENGTH=200
 
 # US Census
 mkdir -p data/USCensus
@@ -37,7 +37,7 @@ mv ./data/USCensus/USCensus1990.attributes.txt ./data/USCensus/USCensus.attribut
 
 systemds -f dataprep/dataprepUSCensus.dml -exec singlenode -stats -nvargs FILE="./data/USCensus/USCensus.csv" OUTPUTDIR="./data/USCensus/"
 
-# USCensus Short
-mkdir -p data/USCensus/short
+## USCensus Short
+#mkdir -p data/USCensus/short
 
-systemds -f dataprep/shortUSCensus.dml -nvargs DIR="./data/USCensus/" LENGTH=5000
+#systemds -f dataprep/shortUSCensus.dml -nvargs DIR="./data/USCensus/" LENGTH=5000
