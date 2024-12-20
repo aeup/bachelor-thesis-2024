@@ -1,6 +1,0 @@
-X = read("data/Covtype/Covtype_X.csv");
-E = read("data/Covtype/Covtype_o_e.csv");
-
-RESULT = slicefinder(X=X, e=E);
-
-print(toString(RESULT));

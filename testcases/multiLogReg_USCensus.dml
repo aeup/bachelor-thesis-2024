@@ -1,0 +1,6 @@
+X = read("data/USCensus/USCensus_X2.csv");
+Y = read("data/USCensus/USCensus_y.csv");
+
+RESULT = multiLogReg(X=X, Y=Y);
+
+print(toString(RESULT));

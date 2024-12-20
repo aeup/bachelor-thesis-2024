@@ -1,0 +1,6 @@
+X = read("data/USCensus/USCensus_X2.csv");
+Y = read("data/USCensus/USCensus_y.csv");
+
+RESULT = lmCG(X=X, y=Y, verbose=FALSE);
+
+print(toString(RESULT));

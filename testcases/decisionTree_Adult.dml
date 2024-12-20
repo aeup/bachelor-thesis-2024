@@ -1,0 +1,8 @@
+X = read("data/Adult/Adult_X.csv");
+Y = read("data/Adult/Adult_y.csv");
+C_NCOL = ncol(X) + 1;
+CTYPES = matrix(2,rows=1, cols=C_NCOL);
+
+RESULT = decisionTree(X=X, y=Y, ctypes=CTYPES);
+
+print(toString(RESULT));

@@ -1,8 +1,0 @@
-source("testcases/utils/stratstats.dml") as stratstats;
-
-#X = matrix(1,rows=500, cols=500);
-X = read("data/USCensus/short/USCensus_X.csv");
-
-RESULT = stratstats::m_stratstats(X=X);
-
-print(toString(RESULT));

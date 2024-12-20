@@ -1,0 +1,4 @@
+<root>
+    <sysds.compile.linearization>RESOURCE_AWARE_FAST</sysds.compile.linearization>
+    <sysds.optlevel>1</sysds.optlevel> <!-- 1 für no rewrites, 2 default mit rewrites, 1 nicht gegen andere Systeme-->
+</root>
