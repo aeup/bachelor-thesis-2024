@@ -1,6 +1,6 @@
 DML_FILES=(testcases/*.dml)
 CONFIG_FILES=(configs/*.xml)
-RUNS=5
+RUNS=10
 
 while getopts l: flag
 do
@@ -28,6 +28,8 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
     echo -e "-----\nCONFIG: ${CONFIG_FILE}\nDML FILE: $DML_FILE\n"
 
     for (( i = 1; i <= $RUNS; i++ )); do
+
+      echo -e "RUN: ${i}"
 
       LOGS="$(systemds -f $DML_FILE -config $CONFIG_FILE)"
       TOTAL_ELAPSED_TIME="$(echo "$LOGS" | grep "Total elapsed time:")"
