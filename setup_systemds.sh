@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Installing dependencies..."
 #sudo apt update
 #sudo apt install -y git openjdk-11-jdk maven r-base
