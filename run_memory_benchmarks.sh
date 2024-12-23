@@ -1,3 +1,6 @@
+export SYSTEMDS_ROOT=$(pwd)/dependencies/systemds
+export PATH=$SYSTEMDS_ROOT/bin:$PATH
+
 DML_FILES=(testcases/*.dml)
 CONFIG_FILES=(configs/*.xml)
 RUNS=5

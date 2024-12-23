@@ -1,5 +1,8 @@
 # this file is based on https://github.com/damslab/reproducibility/blob/master/sigmod2021-sliceline-p218/run3DownloadData.sh
 
+export SYSTEMDS_ROOT=$(pwd)/dependencies/systemds
+export PATH=$SYSTEMDS_ROOT/bin:$PATH
+
 mkdir -p data
 
 # Adult
