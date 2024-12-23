@@ -28,7 +28,7 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
     for (( i = 1; i <= $RUNS; i++ )); do
 
       #systemds -f $DML_FILE --config $CONFIG_FILE
-      LOGS="$(systemds -f $DML_FILE --config $CONFIG_FILE)"
+      LOGS="$(systemds -f $DML_FILE --config $CONFIG_FILE -stats)"
       MEMORY_CONSUMPTION="$(echo "$LOGS" |grep "MemoryMonitor:")"
 
       REGEX1='[[:space:]][0-9]+[[:space:]]'

@@ -31,7 +31,7 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
 
       echo -e "RUN: ${i}"
 
-      LOGS="$(systemds -f $DML_FILE -config $CONFIG_FILE)"
+      LOGS="$(systemds -f $DML_FILE -config $CONFIG_FILE -stats)"
       TOTAL_ELAPSED_TIME="$(echo "$LOGS" | grep "Total elapsed time:")"
       TOTAL_COMPILATION_TIME="$(echo "$LOGS" | grep "Total compilation time:")"
       TOTAL_EXECUTION_TIME="$(echo "$LOGS" | grep "Total execution time:")"
