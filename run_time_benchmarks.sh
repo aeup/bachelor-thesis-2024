@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export SYSTEMDS_ROOT=$(pwd)/dependencies/systemds/
-export PATH=$SYSTEMDS_ROOT/bin:$PATH
+#export SYSTEMDS_ROOT=$(pwd)/dependencies/systemds/
+#export PATH=$SYSTEMDS_ROOT/bin:$PATH
 
 DML_FILES=(testcases/*.dml)
 CONFIG_FILES=(configs/*.xml)
@@ -41,7 +41,7 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
       TOTAL_COMPILATION_TIME="$(echo "$LOGS" | grep "Total compilation time:")"
       TOTAL_EXECUTION_TIME="$(echo "$LOGS" | grep "Total execution time:")"
 
-      REGEX='[0-9]+,[0-9]+'
+      REGEX='[0-9]+.[0-9]+'
       TOTAL_ELAPSED_TIME="$(echo ${TOTAL_ELAPSED_TIME} | grep -Eo $REGEX)"
       TOTAL_COMPILATION_TIME="$(echo ${TOTAL_COMPILATION_TIME} | grep -Eo $REGEX)"
       TOTAL_EXECUTION_TIME="$(echo ${TOTAL_EXECUTION_TIME} | grep -Eo $REGEX)"
