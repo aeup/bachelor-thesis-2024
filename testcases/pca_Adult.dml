@@ -1,7 +1,5 @@
-source("testcases/utils/pca.dml") as pca;
-
 X = read("data/Adult/Adult_X.csv");
 
-RESULT = pca::m_pca(X=X);
+RESULT = pca(X=X);
 
 print(toString(RESULT));

@@ -1,7 +1,5 @@
-source("testcases/utils/stratstats.dml") as stratstats;
-
 X = read("data/Covtype/Covtype_X.csv");
 
-RESULT = stratstats::m_stratstats(X=X);
+RESULT = stratstats(X=X);
 
 print(toString(RESULT));

@@ -4,49 +4,90 @@ import matplotlib.pyplot as plt
 file_name_mapping_array = [
     ("breadth-first", "Breadth-First"),
     ("depth-first", "Depth-First"),
-    ("min-intermediate", "Min Intermediate")
+    ("min-intermediate", "Min Intermediate"),
+    ("resource-aware", "Fast Resource-aware")
 ]
 
 testcases = [
-    ("autoencoder","Autoencoder"),
+    #("autoencoder","Autoencoder"),
     ("decisionTree","decisionTree"),
     ("kmeans", "kMeans"),
     ("lmCG", "lmCG"),
     ("multiLogReg", "multiLogReg"),
     ("pca", "PCA"),
     ("pnmf", "PNMF"),
-    ("slicefinder", "slicefinder"),
+    #("slicefinder", "slicefinder"),
     ("stratstats", "stratstats")
 ]
 
-for (testcase_file, testcase_name) in testcases:
-    results = []
+datasets = [
+    ("Adult", "Adult Dataset"),
+    ("Covtype", "Covertype Dataset"),
+    ("USCensus", "USCensus Dataset")
+]
 
-    for (file_name, display_name) in file_name_mapping_array:
-        file_array = []
+times = [
+    ("TOTAL_COMPILATION_TIME", "compilation time"),
+    ("TOTAL_ELAPSED_TIME", "total elapsed time"),
+    ("TOTAL_EXECUTION_TIME", "execution time"),
+]
 
-        with open('temp/TIME_' + file_name + '_' + testcase_file + '.csv', newline='') as f:
-            reader = csv.reader(f, delimiter=";")
+for (time_file, time_name) in times:
+    for (testcase_file, testcase_name) in testcases:
 
-            for row in reader:
-                file_array.append(row)
+        results = []
+        
+        for (dataset_name, dataset_display_name) in datasets:
 
-        measured_values = []
-        for row in file_array:
-            for element in row:
-                measured_values.append(float(element.replace(",", ".")))
+            results_dataset = []
 
-        results.append(measured_values)
+            for (file_name, display_name) in file_name_mapping_array:
+                file_array = []
 
-    # generate plots
-    fig, chart = plt.subplots(1, 1)
+                with open('temp/' + time_file + '_' + file_name + '_' + testcase_file + '_' + dataset_name + '.csv', newline='') as f:
+                    reader = csv.reader(f, delimiter=";")
 
-    chart.boxplot(results, tick_labels=[i[0] for i in file_name_mapping_array])
-    chart.set_title(testcase_name)
-    chart.set_ylim(ymin=0)
-    plt.setp(chart.get_xticklabels(), rotation=60, horizontalalignment='right')
-    chart.set_ylabel("runtime in s")
+                    for row in reader:
+                        file_array.append(row)
 
-    fig.tight_layout()
+                measured_values = []
+                for row in file_array:
+                    for element in row:
+                        measured_values.append(float(element.replace(",", ".")))
 
-    plt.savefig('results/TIME_' + testcase_file + '.png')
+                results_dataset.append(measured_values)
+            
+            results.append(results_dataset)
+            
+
+        # generate plots
+        fig, (chart1, chart2, chart3) = plt.subplots(1, 3)
+
+
+        highest_over_all_value = max(max(x) for x in results[0])
+
+        chart1.boxplot(results[0], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
+        chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+        plt.setp(chart1.get_xticklabels(), rotation=60, horizontalalignment='right')
+        chart1.set_ylabel("runtime in s")
+
+
+        highest_over_all_value = max(max(x) for x in results[1])
+
+        chart2.boxplot(results[1], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
+        chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+        plt.setp(chart2.get_xticklabels(), rotation=60, horizontalalignment='right')
+        chart2.set_ylabel("runtime in s")
+
+        highest_over_all_value = max(max(x) for x in results[2])
+
+        chart3.boxplot(results[2], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
+        chart3.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+        plt.setp(chart3.get_xticklabels(), rotation=60, horizontalalignment='right')
+        chart3.set_ylabel("runtime in s")
+
+        fig.tight_layout()
+
+        plt.savefig('results/' + time_file +'_' + testcase_file + '.png')
+
+        plt.close(fig)

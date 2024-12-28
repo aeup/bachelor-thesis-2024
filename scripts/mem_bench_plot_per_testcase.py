@@ -6,24 +6,25 @@ import copy
 file_name_mapping_array = [
     ("breadth-first", "Breadth-First"),
     ("depth-first", "Depth-First"),
-    ("min-intermediate", "Min Intermediate")
+    ("min-intermediate", "Min Intermediate"),
+    ("resource-aware", "Fast Resource-aware")
 ]
 
 testcases = [
     #("autoencoder","Autoencoder"),
-    #("decisionTree","decisionTree"),
-    #("kmeans", "kMeans"),
-    #("lmCG", "lmCG"),
-    #("multiLogReg", "multiLogReg"),
-    #("pca", "PCA"),
-    #("pnmf", "PNMF"),
+    ("decisionTree","decisionTree"),
+    ("kmeans", "kMeans"),
+    ("lmCG", "lmCG"),
+    ("multiLogReg", "multiLogReg"),
+    ("pca", "PCA"),
+    ("pnmf", "PNMF"),
     ("slicefinder", "slicefinder"),
-    #("stratstats", "stratstats")
+    ("stratstats", "stratstats")
 ]
 
 datasets = [
     ("Adult", "Adult Dataset"),
-    ("Covtype", "Covtype Dataset"),
+    ("Covtype", "Covertype Dataset"),
     ("USCensus", "USCensus Dataset")
 ]
 
@@ -92,17 +93,18 @@ for (testcase_file, testcase_name) in testcases:
 
     # generate plots
 
-    label_location = np.arange(len(temp_dataset))
-    bar_width = 0.3
+    label_location = np.arange(len(temp_dataset)) * 1.8 
+    bar_width = 0.35
     multiplier = 0
+    hatch = ['/', '+', 'X' , '-']
 
 
     fig, chart = plt.subplots(layout='constrained')
 
     for file_id, (file_name, result) in enumerate(temp_results.items()):
-        offset = bar_width * multiplier
-        rects = chart.bar( label_location + offset, result, bar_width, label=file_name_mapping_array[file_id][0])
-        chart.bar_label(rects, padding=3)
+        offset = (bar_width+0.05) * multiplier
+        rects = chart.bar( label_location + offset - 0.2, result, bar_width, label=file_name_mapping_array[file_id][0], hatch=hatch[multiplier%4], edgecolor='black', color='lightgrey')
+        #chart.bar_label(rects, padding=1)
         multiplier += 1
 
 
@@ -111,7 +113,7 @@ for (testcase_file, testcase_name) in testcases:
     chart.set_title(testcase_name)
     chart.set_ylabel("Memory Consumption in MB")
     chart.set_xticks(label_location + bar_width, [i[1] for i in temp_dataset])
-    chart.legend(loc='upper left', ncols=3)
-    chart.set_ylim(0, highest_over_all_value + 2000)
+    chart.legend(loc='upper left', ncols=1)
+    chart.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
 
     plt.savefig('results/MEMORY_' + testcase_file + '.png')
