@@ -29,4 +29,4 @@ for (file_name, output_file_name) in testcases:
         ax.set_xlim(xmin=0)
         ax.set_xlabel("Time in s")
         ax.set_ylabel("Memory Consumption in MB")
-        plt.savefig('results/'+output_file_name)
+        plt.savefig('results/'+output_file_name, dpi=400)

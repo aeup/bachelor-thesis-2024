@@ -131,6 +131,6 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
 
     fig.tight_layout()
 
-    plt.savefig('results/MEMORY_' + testcase_file + '.png')
+    plt.savefig('results/MEMORY_' + testcase_file + '.png', dpi=400)
 
     plt.close(fig)

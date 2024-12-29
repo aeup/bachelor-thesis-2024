@@ -110,6 +110,6 @@ for (time_file, time_name) in times:
 
         fig.tight_layout()
 
-        plt.savefig('results/' + time_file +'_' + testcase_file + '.png')
+        plt.savefig('results/' + time_file +'_' + testcase_file + '.png', dpi=400)
 
         plt.close(fig)
