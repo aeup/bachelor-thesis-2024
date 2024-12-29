@@ -10,22 +10,21 @@ file_name_mapping_array = [
     ("resource-aware", "Fast Resource-aware")
 ]
 
-testcases = [
-    #("autoencoder","Autoencoder"),
-    ("decisionTree","decisionTree"),
-    ("kmeans", "kMeans"),
-    ("lmCG", "lmCG"),
-    ("multiLogReg", "multiLogReg"),
-    ("pca", "PCA"),
-    ("pnmf", "PNMF"),
-    ("slicefinder", "slicefinder"),
-    ("stratstats", "stratstats")
-]
-
 datasets = [
     ("Adult", "Adult Dataset"),
     ("Covtype", "Covertype Dataset"),
     ("USCensus", "USCensus Dataset")
+]
+
+testcases = [
+    ("decisionTree","decisionTree", datasets),
+    ("kmeans", "kMeans", datasets),
+    ("lmCG", "lmCG", datasets),
+    ("multiLogReg", "multiLogReg", datasets),
+    ("pca", "PCA", datasets),
+    ("pnmf", "PNMF", datasets),
+    ("slicefinder", "slicefinder", datasets[:2]), # only generate for Adult and Covtype datasets
+    ("stratstats", "stratstats", datasets[:1]) # only generate for Adult dataset
 ]
 
 keywords = [
@@ -34,19 +33,16 @@ keywords = [
     "END"
 ]
 
-for (testcase_file, testcase_name) in testcases:
+for (testcase_file, testcase_name, testcase_datasets) in testcases:
 
-    # generate results dictonary
-    results = {}
-    for (file_name, display_name) in file_name_mapping_array:
-        results[file_name] = [None] * len(datasets)
+    results = []
 
-    # needed fpr plotting
-    highest_over_all_value = 0
+    for dataset_id, (dataset, dataset_description) in enumerate(testcase_datasets):
 
-    for dataset_id, (dataset, dataset_description) in enumerate(datasets):
+        dataset_results = []
 
         for file_id, (file_name, display_name) in enumerate(file_name_mapping_array):
+
             try:
                 with open('temp/MEMORY_' + file_name + '_' + testcase_file + '_' + dataset + '.csv', newline='') as f:
 
@@ -69,47 +65,72 @@ for (testcase_file, testcase_name) in testcases:
                                 if value_as_int > highest_measured_value:
                                     highest_measured_value = value_as_int
 
-                    results[file_name][dataset_id] = highest_measured_value
+                    dataset_results.append(highest_measured_value)
 
-                    if highest_over_all_value < highest_measured_value:
-                        highest_over_all_value = highest_measured_value
             except:
                 print('FILE temp/MEMORY_' + file_name + '_' + testcase_file + '_' + dataset + '.csv NOT FOUND')
-
-    temp_dataset = list(datasets)
-    temp_results = copy.deepcopy(results)
-    removed_datasets = 0
-
-    for i, result in enumerate(results[file_name_mapping_array[0][0]]):
-        if result == None:
-            temp_dataset.pop(i - removed_datasets)
-            for j, temp in enumerate(temp_results):
-                temp_results[file_name_mapping_array[j][0]].pop(i - removed_datasets)
-            removed_datasets += 1
-
-    if len(temp_dataset) == 0:
-        print('Cannot create Plot for Testcase: ' + testcase_name)
-        break
+        
+        results.append(dataset_results)
 
     # generate plots
-
-    label_location = np.arange(len(temp_dataset)) * 1.8 
-    bar_width = 0.35
-    multiplier = 0
     hatch = ['/', '+', 'X' , '-']
 
+    if(len(testcase_datasets) == 3):
+        fig, (chart1, chart2, chart3) = plt.subplots(1, 3)
 
-    fig, chart = plt.subplots(layout='constrained')
+        highest_over_all_value = max(results[0])
 
-    for file_id, (file_name, result) in enumerate(temp_results.items()):
-        offset = (bar_width+0.05) * multiplier
-        rects = chart.bar( label_location + offset - 0.2, result, bar_width, label=file_name_mapping_array[file_id][0], hatch=hatch[multiplier%4], edgecolor='black', color='lightgrey')
-        #chart.bar_label(rects, padding=1)
-        multiplier += 1
+        chart1.bar([0, 1, 2, 3], results[0], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart1.set_ylabel("Memory Consumption in MB")
+        chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
 
-    chart.set_ylabel("Memory Consumption in MB")
-    chart.set_xticks(label_location + bar_width, [i[1] for i in temp_dataset])
-    chart.legend(loc='upper left', ncols=1)
-    chart.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+        highest_over_all_value = max(results[1])
+
+        chart2.bar([0, 1, 2, 3], results[1], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart2.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart2.set_ylabel("Memory Consumption in MB")
+        chart2.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+
+        highest_over_all_value = max(results[2])
+
+        chart3.bar([0, 1, 2, 3], results[2], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart3.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart3.set_ylabel("Memory Consumption in MB")
+        chart3.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+    
+    if(len(testcase_datasets) == 2):
+        fig, (chart1, chart2) = plt.subplots(1, 2)
+
+        highest_over_all_value = max(results[0])
+
+        chart1.bar([0, 1, 2, 3], results[0], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart1.set_ylabel("Memory Consumption in MB")
+        chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+
+        highest_over_all_value = max(results[1])
+
+        chart2.bar([0, 1, 2, 3], results[1], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart2.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart2.set_ylabel("Memory Consumption in MB")
+        chart2.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+    
+    if(len(testcase_datasets) == 1):
+        fig, chart1 = plt.subplots(1, 1)
+
+        highest_over_all_value = max(results[0])
+
+        chart1.bar([0, 1, 2, 3], results[0], 0.8, hatch=hatch, label=[i[1] for i in file_name_mapping_array], edgecolor='black', color='lightgrey')
+        chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
+        chart1.set_ylabel("Memory Consumption in MB")
+        chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+
+    handles, labels = chart1.get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper left', ncol=2)
+
+    fig.tight_layout()
 
     plt.savefig('results/MEMORY_' + testcase_file + '.png')
+
+    plt.close(fig)
