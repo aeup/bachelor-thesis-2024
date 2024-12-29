@@ -68,19 +68,21 @@ for (time_file, time_name) in times:
             chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart1.set_ylabel("Time in s")
-
+            chart1.set_title(datasets[0][1])
 
             highest_over_all_value = max(max(x) for x in results[1])
 
             chart2.boxplot(results[1], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart2.set_ylabel("Time in s")
+            chart2.set_title(datasets[1][1])
 
             highest_over_all_value = max(max(x) for x in results[2])
 
             chart3.boxplot(results[2], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart3.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart3.set_ylabel("Time in s")
+            chart3.set_title(datasets[2][1])
         
         if(len(testcase_datasets) == 2):
             fig, (chart1, chart2) = plt.subplots(1, 2)
@@ -90,6 +92,7 @@ for (time_file, time_name) in times:
             chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart1.set_ylabel("Time in s")
+            chart1.set_title(datasets[0][1])
 
 
             highest_over_all_value = max(max(x) for x in results[1])
@@ -97,6 +100,7 @@ for (time_file, time_name) in times:
             chart2.boxplot(results[1], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart2.set_ylabel("Time in s")
+            chart2.set_title(datasets[1][1])
         
         if(len(testcase_datasets) == 1):
             fig, (chart1) = plt.subplots(1, 1)
@@ -106,6 +110,7 @@ for (time_file, time_name) in times:
             chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
             chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
             chart1.set_ylabel("Time in s")
+            chart1.set_title(datasets[0][1])
 
 
         fig.tight_layout()

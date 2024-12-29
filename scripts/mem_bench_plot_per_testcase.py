@@ -84,6 +84,7 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart1.set_ylabel("Memory Consumption in MB")
         chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+        chart1.set_title(datasets[0][1])
 
         highest_over_all_value = max(results[1])
 
@@ -91,6 +92,7 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart2.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart2.set_ylabel("Memory Consumption in MB")
         chart2.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+        chart2.set_title(datasets[1][1])
 
         highest_over_all_value = max(results[2])
 
@@ -98,6 +100,7 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart3.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart3.set_ylabel("Memory Consumption in MB")
         chart3.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+        chart3.set_title(datasets[2][1])
     
     if(len(testcase_datasets) == 2):
         fig, (chart1, chart2) = plt.subplots(1, 2)
@@ -108,6 +111,7 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart1.set_ylabel("Memory Consumption in MB")
         chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+        chart1.set_title(datasets[0][1])
 
         highest_over_all_value = max(results[1])
 
@@ -115,6 +119,7 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart2.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart2.set_ylabel("Memory Consumption in MB")
         chart2.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
+        chart2.set_title(datasets[1][1])
     
     if(len(testcase_datasets) == 1):
         fig, chart1 = plt.subplots(1, 1)
@@ -125,12 +130,11 @@ for (testcase_file, testcase_name, testcase_datasets) in testcases:
         chart1.set_ylim(0, highest_over_all_value + 0.2 * highest_over_all_value)
         chart1.set_ylabel("Memory Consumption in MB")
         chart1.tick_params(axis='x', which='both', bottom=False,top=False, labelbottom=False)
-
-    handles, labels = chart1.get_legend_handles_labels()
-    fig.legend(handles, labels, loc='upper left', ncol=2)
+        chart1.set_title(datasets[0][1])
 
     fig.tight_layout()
-
-    plt.savefig('results/MEMORY_' + testcase_file + '.png', dpi=400)
+    handles, labels = chart1.get_legend_handles_labels()
+    legend = fig.legend(handles, labels, loc='upper center', ncol=2, bbox_to_anchor=(0.5,0))
+    plt.savefig('results/MEMORY_' + testcase_file + '.png', dpi=400,  bbox_extra_artists=(legend,), bbox_inches='tight')
 
     plt.close(fig)
