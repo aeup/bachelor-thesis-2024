@@ -2,22 +2,10 @@ import csv
 import matplotlib.pyplot as plt
 
 file_name_mapping_array = [
-    ("breadth-first", "Breadth-First"),
-    ("depth-first", "Depth-First"),
-    ("min-intermediate", "Min Intermediate"),
-    ("resource-aware", "Fast Resource-aware")
-]
-
-testcases = [
-    #("autoencoder","Autoencoder"),
-    ("decisionTree","decisionTree"),
-    ("kmeans", "kMeans"),
-    ("lmCG", "lmCG"),
-    ("multiLogReg", "multiLogReg"),
-    ("pca", "PCA"),
-    ("pnmf", "PNMF"),
-    #("slicefinder", "slicefinder"),
-    ("stratstats", "stratstats")
+    ("breadth-first", "(b)"),
+    ("depth-first", "(d)"),
+    ("min-intermediate", "(m)"),
+    ("resource-aware", "(r)")
 ]
 
 datasets = [
@@ -32,12 +20,23 @@ times = [
     ("TOTAL_EXECUTION_TIME", "execution time"),
 ]
 
+testcases = [
+    ("decisionTree","decisionTree", datasets),
+    ("kmeans", "kMeans", datasets),
+    ("lmCG", "lmCG", datasets),
+    ("multiLogReg", "multiLogReg", datasets),
+    ("pca", "PCA", datasets),
+    ("pnmf", "PNMF", datasets),
+    ("slicefinder", "slicefinder", datasets[:2]), # only generate for Adult and Covtype datasets
+    ("stratstats", "stratstats", datasets[:1]) # only generate for Adult dataset
+]
+
 for (time_file, time_name) in times:
-    for (testcase_file, testcase_name) in testcases:
+    for (testcase_file, testcase_name, testcase_datasets) in testcases:
 
         results = []
         
-        for (dataset_name, dataset_display_name) in datasets:
+        for (dataset_name, dataset_display_name) in testcase_datasets:
 
             results_dataset = []
 
@@ -61,30 +60,53 @@ for (time_file, time_name) in times:
             
 
         # generate plots
-        fig, (chart1, chart2, chart3) = plt.subplots(1, 3)
+        if(len(testcase_datasets) == 3):
+            fig, (chart1, chart2, chart3) = plt.subplots(1, 3)
+
+            highest_over_all_value = max(max(x) for x in results[0])
+
+            chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart1.set_ylabel("Time in s")
 
 
-        highest_over_all_value = max(max(x) for x in results[0])
+            highest_over_all_value = max(max(x) for x in results[1])
 
-        chart1.boxplot(results[0], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
-        chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
-        plt.setp(chart1.get_xticklabels(), rotation=60, horizontalalignment='right')
-        chart1.set_ylabel("runtime in s")
+            chart2.boxplot(results[1], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart2.set_ylabel("Time in s")
+
+            highest_over_all_value = max(max(x) for x in results[2])
+
+            chart3.boxplot(results[2], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart3.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart3.set_ylabel("Time in s")
+        
+        if(len(testcase_datasets) == 2):
+            fig, (chart1, chart2) = plt.subplots(1, 2)
+
+            highest_over_all_value = max(max(x) for x in results[0])
+
+            chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart1.set_ylabel("Time in s")
 
 
-        highest_over_all_value = max(max(x) for x in results[1])
+            highest_over_all_value = max(max(x) for x in results[1])
 
-        chart2.boxplot(results[1], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
-        chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
-        plt.setp(chart2.get_xticklabels(), rotation=60, horizontalalignment='right')
-        chart2.set_ylabel("runtime in s")
+            chart2.boxplot(results[1], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart2.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart2.set_ylabel("Time in s")
+        
+        if(len(testcase_datasets) == 1):
+            fig, (chart1) = plt.subplots(1, 1)
 
-        highest_over_all_value = max(max(x) for x in results[2])
+            highest_over_all_value = max(max(x) for x in results[0])
 
-        chart3.boxplot(results[2], labels=[i[0] for i in file_name_mapping_array], medianprops=dict(color="black"))
-        chart3.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
-        plt.setp(chart3.get_xticklabels(), rotation=60, horizontalalignment='right')
-        chart3.set_ylabel("runtime in s")
+            chart1.boxplot(results[0], labels=[i[1] for i in file_name_mapping_array], medianprops=dict(color="black"))
+            chart1.set_ylim(0, highest_over_all_value + 0.1 * highest_over_all_value)
+            chart1.set_ylabel("Time in s")
+
 
         fig.tight_layout()
 
