@@ -107,10 +107,6 @@ for (testcase_file, testcase_name) in testcases:
         #chart.bar_label(rects, padding=1)
         multiplier += 1
 
-
-
-
-    chart.set_title(testcase_name)
     chart.set_ylabel("Memory Consumption in MB")
     chart.set_xticks(label_location + bar_width, [i[1] for i in temp_dataset])
     chart.legend(loc='upper left', ncols=1)
