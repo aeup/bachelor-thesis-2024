@@ -54,6 +54,3 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
     echo "-----"
   done
 done
-
-python3 scripts/mem_bench_plot_per_testcase.py
-python3 scripts/mem_bench_plot_over_time.py

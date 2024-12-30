@@ -65,4 +65,3 @@ for CONFIG_FILE in "${CONFIG_FILES[@]}"; do
   done
 done
 
-python3 scripts/time_bench_plot.py

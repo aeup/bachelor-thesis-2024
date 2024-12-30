@@ -1,17 +1,11 @@
 #!/bin/bash
 
-echo "Installing dependencies..."
-#sudo apt update
-#sudo apt install -y git openjdk-11-jdk maven r-base
-
-#export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-#export PATH=$JAVA_HOME/bin:$PATH
-
 echo "Setting up SystemDS..."
 rm -rf dependencies
 mkdir -p dependencies
 cd dependencies
 git clone git@github.com:aeup/systemds.git
+git checkout 799ab3e6da8a718349fe874230e8e4d6209b60aa
 
 cd systemds
 export SYSTEMDS_ROOT=$(pwd)
