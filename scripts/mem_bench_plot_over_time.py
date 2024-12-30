@@ -1,6 +1,11 @@
 import csv
-
 import matplotlib.pyplot as plt
+
+params = {'legend.fontsize': 'large',
+         'axes.labelsize': 'large',
+         'xtick.labelsize':'large',
+         'ytick.labelsize':'large'}
+plt.rcParams.update(params)
 
 testcases = [
     ('MEMORY_resource-aware_multiLogReg_Adult.csv', 'MEMORY_OVER_TIME_multiLogReg_Adult.png'),

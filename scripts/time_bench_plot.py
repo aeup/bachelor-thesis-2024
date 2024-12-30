@@ -1,6 +1,12 @@
 import csv
 import matplotlib.pyplot as plt
 
+params = {'legend.fontsize': 'large',
+         'axes.labelsize': 'large',
+         'xtick.labelsize':'large',
+         'ytick.labelsize':'large'}
+plt.rcParams.update(params)
+
 file_name_mapping_array = [
     ("breadth-first", "(b)"),
     ("depth-first", "(d)"),
